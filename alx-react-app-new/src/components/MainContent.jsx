@@ -6,6 +6,7 @@ function MainContent() {
                 padding: "20px",
                 textAlign: "center",
                 minHeight: "200px",
+                color: "#000",
             }}>
             <p>I love to visit New York, Paris, and Tokyo.</p>
         </main>

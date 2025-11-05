@@ -11,6 +11,7 @@ function UserProfile(props) {
                 margin: "15px",
                 backgroundColor: "#f9f9f9",
                 boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                color:"#000"
             }}
         >
             <h2 style={{ color: "blue", marginBottom: "10px" }}>{props.name}</h2>
