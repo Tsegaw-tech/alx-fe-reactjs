@@ -1,7 +1,9 @@
 // src/UserInfo.jsx
-import UserDetails from "./UserDetails";
+import React from 'react';
+import UserDetails from './UserDetails';
 
 function UserInfo() {
+  // ✅ No props here
   return <UserDetails />;
 }
 
