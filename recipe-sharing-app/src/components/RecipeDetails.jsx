@@ -1,12 +1,10 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import useRecipeStore from './recipeStore';
-import EditRecipeForm from './EditRecipeForm';
-import DeleteRecipeButton from './DeleteRecipeButton';
+import { useRecipeStore } from "./recipeStore";
+import FavoriteButton from './FavoriteButton';
 
 const RecipeDetails = () => {
-  const { id } = useParams();
-  const recipeId = parseInt(id);
+  const { recipeId } = useParams();
   const recipe = useRecipeStore((state) =>
     state.recipes.find((r) => r.id === recipeId)
   );
@@ -17,8 +15,9 @@ const RecipeDetails = () => {
     <div>
       <h1>{recipe.title}</h1>
       <p>{recipe.description}</p>
-      <EditRecipeForm recipe={recipe} />
-      <DeleteRecipeButton recipeId={recipe.id} />
+      <p><strong>Ingredients:</strong> {recipe.ingredients}</p>
+      <p><strong>Prep Time:</strong> {recipe.prepTime} mins</p>
+      <FavoriteButton recipeId={recipe.id} />
     </div>
   );
 };
