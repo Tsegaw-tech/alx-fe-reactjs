@@ -58,7 +58,7 @@ export default function Search() {
 
         {!loading && results.length === 0 && username !== "" && (
           <p className="text-center text-red-500">
-            Looks like we can't find the user
+            Looks like we cant find the user
           </p>
         )}
 
