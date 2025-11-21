@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { searchUsersAdvanced } from "../services/githubService";
+import { fetchUserData } from "../services/githubService";
 
 export default function Search() {
   const [username, setUsername] = useState("");
@@ -8,22 +8,18 @@ export default function Search() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // ✅ ALX requires this function
-  const fetchUserData = async () => {
+  const handleSearch = async (e) => {
+    e.preventDefault();
     setLoading(true);
-    const users = await searchUsersAdvanced({ username, location, minRepos });
+
+    const users = await fetchUserData({ username, location, minRepos });
     setResults(users);
     setLoading(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    fetchUserData();
-  };
-
   return (
     <div className="p-5 max-w-xl mx-auto">
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSearch} className="space-y-4">
         <input
           type="text"
           placeholder="Search username"
@@ -31,6 +27,7 @@ export default function Search() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+
         <input
           type="text"
           placeholder="Location (optional)"
@@ -38,6 +35,7 @@ export default function Search() {
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />
+
         <input
           type="number"
           placeholder="Min repos (optional)"
@@ -45,6 +43,7 @@ export default function Search() {
           value={minRepos}
           onChange={(e) => setMinRepos(e.target.value)}
         />
+
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
@@ -57,8 +56,10 @@ export default function Search() {
       <div className="mt-6">
         {loading && <p>Loading...</p>}
 
-        {!loading && results.length === 0 && (
-          <p className="text-gray-500">No results yet.</p>
+        {!loading && results.length === 0 && username !== "" && (
+          <p className="text-center text-red-500">
+            Looks like we can't find the user
+          </p>
         )}
 
         {!loading && results.length > 0 && (
