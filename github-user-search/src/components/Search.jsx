@@ -1,55 +1,56 @@
-import { useState } from "react";
-import { fetchUserData } from "../services/githubService";
+import React, { useState } from "react";
 
-export default function Search() {
+function Search({ onSearch }) {
   const [username, setUsername] = useState("");
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [location, setLocation] = useState("");
+  const [minRepos, setMinRepos] = useState("");
 
-  const handleSearch = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError("");
-    setUserData(null);
 
-    const data = await fetchUserData(username);
-
-    if (data) {
-      setUserData(data);
-    } else {
-      setError("Looks like we cant find the user");
-    }
-    setLoading(false);
+    onSearch({
+      username,
+      location,
+      minRepos,
+    });
   };
 
   return (
-    <div>
-      <form onSubmit={handleSearch}>
+    <div className="p-5 max-w-xl mx-auto">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
-          placeholder="Enter GitHub username"
+          placeholder="Search username"
+          className="w-full border p-2 rounded"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          required
         />
-        <button type="submit">Search</button>
+
+        <input
+          type="text"
+          placeholder="Location (optional)"
+          className="w-full border p-2 rounded"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+
+        <input
+          type="number"
+          placeholder="Min repos (optional)"
+          className="w-full border p-2 rounded"
+          value={minRepos}
+          onChange={(e) => setMinRepos(e.target.value)}
+        />
+
+        <button
+          className="bg-blue-600 text-white p-2 rounded w-full"
+          type="submit"
+        >
+          Search
+        </button>
       </form>
-
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-
-      {userData && (
-        <div style={{ marginTop: "20px" }}>
-          <img src={userData.avatar_url} alt={userData.login} width="100" />
-          <h3>{userData.name || userData.login}</h3>
-          <p>
-            <a href={userData.html_url} target="_blank" rel="noreferrer">
-              Visit GitHub Profile
-            </a>
-          </p>
-        </div>
-      )}
     </div>
   );
 }
+
+export default Search;
