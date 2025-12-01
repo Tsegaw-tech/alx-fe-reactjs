@@ -7,6 +7,7 @@ import EditRecipeForm from './components/EditRecipeForm';
 import SearchBar from './components/SearchBar';
 import FavoritesList from './components/FavoritesList';
 import RecommendationsList from './components/RecommendationsList';
+import "./index.css"; // <-- import Tailwind CSS
 
 function App() {
   return (
