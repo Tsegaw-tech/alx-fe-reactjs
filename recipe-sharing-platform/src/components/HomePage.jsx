@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import recipesData from "../data.json"; // import mock data
-
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const [recipes, setRecipes] = useState([]);
@@ -32,7 +32,15 @@ export default function HomePage() {
                 href="#"
                 className="mt-4 inline-block text-blue-500 hover:underline"
               >
-                View Recipe
+                <Link to={`/recipe/${recipe.id}`}>
+                  <div className="cursor-pointer hover:shadow-lg transition-shadow rounded-lg overflow-hidden border">
+                    <img src={recipe.image} alt={recipe.title} className="w-full h-48 object-cover" />
+                    <div className="p-4">
+                      <h2 className="text-xl font-bold">{recipe.title}</h2>
+                      <p className="text-gray-600">{recipe.summary}</p>
+                    </div>
+                  </div>
+                </Link>
               </a>
             </div>
           </div>

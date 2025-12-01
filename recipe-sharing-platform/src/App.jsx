@@ -1,18 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import "./index.css"; // <-- import Tailwind CSS
-import HomePage from "./components/HomePage.jsx";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './components/HomePage.jsx';
+import RecipeDetail from './components/RecipeDetail.jsx';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div>
-      <HomePage />
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/recipe/:id" element={<RecipeDetail />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
