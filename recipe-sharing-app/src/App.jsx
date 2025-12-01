@@ -19,10 +19,6 @@ function App() {
         <Link to="/recommendations">Recommendations</Link>
       </nav>
 
-      <div className="bg-purple-500 text-white p-4 rounded">
-        Tailwind is working!
-      </div>
-
 
       <SearchBar />
 
