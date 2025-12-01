@@ -76,3 +76,6 @@ export const useRecipeStore = create((set, get) => ({
     set({ recommendations: recommended.slice(0, 5) }); // Limit to 5
   },
 }));
+
+
+export default useRecipeStore;
