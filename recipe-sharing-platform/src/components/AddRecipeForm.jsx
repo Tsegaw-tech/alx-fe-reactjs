@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function AddRecipeForm() {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
-  const [instructions, setInstructions] = useState("");
+  const [steps, setSteps] = useState(""); // <-- rename instructions -> steps
   const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
@@ -14,23 +14,21 @@ export default function AddRecipeForm() {
     if (!title.trim()) newErrors.title = "Title is required";
     if (!ingredients.trim() || ingredients.split(",").length < 2)
       newErrors.ingredients = "Enter at least 2 ingredients, separated by commas";
-    if (!instructions.trim()) newErrors.instructions = "Instructions are required";
+    if (!steps.trim()) newErrors.steps = "Steps are required"; // <-- updated
 
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // Submit form data (for now, just console.log)
       const newRecipe = {
         title,
         ingredients: ingredients.split(",").map((i) => i.trim()),
-        instructions: instructions.split(".").map((s) => s.trim()).filter(Boolean),
+        steps: steps.split(".").map((s) => s.trim()).filter(Boolean), // <-- updated
       };
       console.log("New Recipe Submitted:", newRecipe);
 
-      // Clear form
       setTitle("");
       setIngredients("");
-      setInstructions("");
+      setSteps(""); // <-- clear steps
       setErrors({});
       alert("Recipe submitted successfully!");
     }
@@ -69,16 +67,14 @@ export default function AddRecipeForm() {
         <div>
           <label className="block font-medium mb-1">Preparation Steps</label>
           <textarea
-            value={instructions}
-            onChange={(e) => setInstructions(e.target.value)}
+            value={steps}
+            onChange={(e) => setSteps(e.target.value)}
             className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 ${
-              errors.instructions ? "border-red-500" : "border-gray-300"
+              errors.steps ? "border-red-500" : "border-gray-300"
             }`}
             rows={5}
           ></textarea>
-          {errors.instructions && (
-            <p className="text-red-500 text-sm mt-1">{errors.instructions}</p>
-          )}
+          {errors.steps && <p className="text-red-500 text-sm mt-1">{errors.steps}</p>}
         </div>
 
         <button
