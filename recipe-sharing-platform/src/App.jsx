@@ -3,21 +3,15 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import "./index.css"; // <-- import Tailwind CSS
-
-
-
+import HomePage from "./components/HomePage.jsx";
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-   
-
-      <div className="bg-blue-500 text-white p-4">Tailwind Works!</div>
-
-      
-    </>
+    <div>
+      <HomePage />
+    </div>
   )
 }
 
