@@ -3,32 +3,35 @@ import { useState } from "react";
 export default function AddRecipeForm() {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
-  const [steps, setSteps] = useState(""); // <-- rename instructions -> steps
+  const [steps, setSteps] = useState("");
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Validation
+  // <-- Separate validate function
+  const validate = () => {
     const newErrors = {};
     if (!title.trim()) newErrors.title = "Title is required";
     if (!ingredients.trim() || ingredients.split(",").length < 2)
       newErrors.ingredients = "Enter at least 2 ingredients, separated by commas";
-    if (!steps.trim()) newErrors.steps = "Steps are required"; // <-- updated
+    if (!steps.trim()) newErrors.steps = "Steps are required";
+    return newErrors;
+  };
 
-    setErrors(newErrors);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate(); // <-- use validate function
+    setErrors(validationErrors);
 
-    if (Object.keys(newErrors).length === 0) {
+    if (Object.keys(validationErrors).length === 0) {
       const newRecipe = {
         title,
         ingredients: ingredients.split(",").map((i) => i.trim()),
-        steps: steps.split(".").map((s) => s.trim()).filter(Boolean), // <-- updated
+        steps: steps.split(".").map((s) => s.trim()).filter(Boolean),
       };
       console.log("New Recipe Submitted:", newRecipe);
 
       setTitle("");
       setIngredients("");
-      setSteps(""); // <-- clear steps
+      setSteps("");
       setErrors({});
       alert("Recipe submitted successfully!");
     }
