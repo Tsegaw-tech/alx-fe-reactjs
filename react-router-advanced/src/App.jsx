@@ -8,27 +8,25 @@ import Login from "./components/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
-  return React.createElement(
-    Router,
-    null,
-    React.createElement(
-      Routes,
-      null,
-      React.createElement(Route, { path: "/", element: React.createElement(Home) }),
-      React.createElement(Route, { path: "/login", element: React.createElement(Login) }),
-      // Protected profile route with nested routes
-      React.createElement(
-        Route,
-        {
-          path: "/profile/*",
-          element: React.createElement(ProtectedRoute, { children: React.createElement(Profile) }),
-        }
-      ),
-      // Dynamic blog route
-      React.createElement(Route, { path: "/blog/:id", element: React.createElement(BlogPost) }),
-      // Redirect unknown routes to home
-      React.createElement(Route, { path: "*", element: React.createElement(Navigate, { to: "/" }) })
-    )
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        
+        {/* Protected profile route with nested routes */}
+        <Route
+          path="/profile/*"
+          element={<ProtectedRoute>{<Profile />}</ProtectedRoute>}
+        />
+
+        {/* Dynamic blog post route */}
+        <Route path="/blog/:id" element={<BlogPost />} />
+
+        {/* Redirect unknown routes to home */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
   );
 };
 
