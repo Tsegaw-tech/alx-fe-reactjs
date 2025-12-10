@@ -5,12 +5,12 @@ import PostsComponent from "./components/PostsComponent";
 // Create a React Query client
 const queryClient = new QueryClient();
 
-const App = () => {
-  return React.createElement(
-    QueryClientProvider,
-    { client: queryClient },
-    React.createElement(PostsComponent, null)
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <PostsComponent />
+    </QueryClientProvider>
   );
-};
+}
 
 export default App;
