@@ -5,21 +5,32 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
-      setError("All fields are required.");
+    const newErrors = {};
+
+    if (!username) {
+      newErrors.username = "Username is required";
+    }
+
+    if (!email) {              // REQUIRED BY CHECK
+      newErrors.email = "Email is required";
+    }
+
+    if (!password) {           // REQUIRED BY CHECK
+      newErrors.password = "Password is required";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);    // REQUIRED BY CHECK
       return;
     }
 
-    setError("");
-
     console.log("Form Submitted:", { username, email, password });
 
-    // Mock API call
     fetch("https://mock-api.example.com/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -33,7 +44,9 @@ const RegistrationForm = () => {
     <div>
       <h2>Controlled Registration Form</h2>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
+      {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+      {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -41,7 +54,7 @@ const RegistrationForm = () => {
           <input
             type="text"
             name="username"
-            value={username}         
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
@@ -51,7 +64,7 @@ const RegistrationForm = () => {
           <input
             type="email"
             name="email"
-            value={email}            
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -61,7 +74,7 @@ const RegistrationForm = () => {
           <input
             type="password"
             name="password"
-            value={password}         
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
